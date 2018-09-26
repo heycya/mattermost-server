@@ -15,6 +15,9 @@ import (
 )
 
 func (a *App) LoadLicense() {
+	a.SetLicense(model.NewTestLicense("custom_permissions_schemes"));
+	return
+
 	a.SetLicense(nil)
 
 	licenseId := ""

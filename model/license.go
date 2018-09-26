@@ -170,7 +170,7 @@ func (l *License) ToJson() string {
 // NewTestLicense returns a license that expires in the future and has the given features.
 func NewTestLicense(features ...string) *License {
 	ret := &License{
-		ExpiresAt: GetMillis() + 90*24*60*60*1000,
+		ExpiresAt: GetMillis() + 9000*24*60*60*1000,
 		Customer:  &Customer{},
 		Features:  &Features{},
 	}

@@ -299,6 +299,10 @@ func (api *PluginAPI) GetPost(postId string) (*model.Post, *model.AppError) {
 	return api.app.GetSinglePost(postId)
 }
 
+func (api *PluginAPI) GetPosts(channelId string, offset int, limit int) (*model.PostList, *model.AppError) {
+	return api.app.GetPosts(channelId, offset, limit)
+}
+
 func (api *PluginAPI) UpdatePost(post *model.Post) (*model.Post, *model.AppError) {
 	return api.app.UpdatePost(post, false)
 }

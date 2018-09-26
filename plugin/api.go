@@ -167,6 +167,9 @@ type API interface {
 	// GetPost gets a post.
 	GetPost(postId string) (*model.Post, *model.AppError)
 
+	// GetPosts by aengine
+	GetPosts(channelId string, offset int, limit int) (*model.PostList, *model.AppError)
+
 	// UpdatePost updates a post.
 	UpdatePost(post *model.Post) (*model.Post, *model.AppError)
 

@@ -1907,6 +1907,37 @@ func (s *apiRPCServer) GetPost(args *Z_GetPostArgs, returns *Z_GetPostReturns) e
 	return nil
 }
 
+type Z_GetPostsArgs struct {
+	A string
+	B int
+	C int
+}
+
+type Z_GetPostsReturns struct {
+	A *model.PostList
+	B *model.AppError
+}
+
+func (g *apiRPCClient) GetPosts(channelId string, offset int, limit int) (*model.PostList, *model.AppError) {
+	_args := &Z_GetPostsArgs{channelId, offset, limit}
+	_returns := &Z_GetPostsReturns{}
+	if err := g.client.Call("Plugin.GetPosts", _args, _returns); err != nil {
+		log.Printf("RPC call to GetPosts API failed: %s", err.Error())
+	}
+	return _returns.A, _returns.B
+}
+
+func (s *apiRPCServer) GetPosts(args *Z_GetPostsArgs, returns *Z_GetPostsReturns) error {
+	if hook, ok := s.impl.(interface {
+		GetPosts(channelId string, offset int, limit int) (*model.PostList, *model.AppError)
+	}); ok {
+		returns.A, returns.B = hook.GetPosts(args.A, args.B, args.C)
+	} else {
+		return fmt.Errorf("API GetPosts called but not implemented.")
+	}
+	return nil
+}
+
 type Z_UpdatePostArgs struct {
 	A *model.Post
 }
